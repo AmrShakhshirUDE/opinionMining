@@ -232,8 +232,16 @@ outdomain["subjectivity"] = outdomain["actual"].astype('category')
 ouTarget = outdomain['subjectivity'].cat.codes
 
 '''tokeniz text -> encode tokenized words -> pad input to be all at the same size'''
-token = Tokenizer()
-token.fit_on_texts(text)
+# token = Tokenizer()
+# token.fit_on_texts(text)
+
+# # saving
+# with open('tokenizer.pickle', 'wb') as handle:
+#     pickle.dump(token, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+# loading
+with open('tokenizer.pickle', 'rb') as handle:
+    token = pickle.load(handle)
 
 vocabSize = len(token.word_index) + 1 #4276 vocabularies/ with back-translated 4794
 
