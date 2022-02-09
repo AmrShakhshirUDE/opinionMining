@@ -1,9 +1,11 @@
-# from tensorflow.keras.preprocessing.text import Tokenizer
+#flask
+from email import message
+from flask import Flask, jsonify, request, json,send_file,redirect,url_for,session
+from bson.json_util import dumps
+from flask_cors import CORS
+
+#to import cnn model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-# from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import Dense,Embedding,Dropout
-# from tensorflow.keras.layers import Conv1D, MaxPooling1D,GlobalMaxPooling1D
-# from tensorflow.keras.optimizers import Adam
 from keras.models import load_model
 
 import re
@@ -17,7 +19,7 @@ from deep_translator import GoogleTranslator
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
-inpuText='the sun is rising'
+
 
 abbreviations ={
     "’": "'",
@@ -141,29 +143,72 @@ def getCleanTextIn(txt):
     else:
         return txt
 
-text= convert_emojis_to_word(inpuText)
-text=cleanTweets(text)
-text=getCleanTextIn(text)
-
 # loading tokenizer
 with open('tokenizer.pickle', 'rb') as handle:
     token = pickle.load(handle)
 
-vocabSize = len(token.word_index) + 1 #4276 vocabularies/ with back-translated 4794
-
-encodedText = token.texts_to_sequences([text])
-maxLength = 100 # make input size equal model configuration size
-fixed = pad_sequences(encodedText,maxlen=maxLength,padding='pre') # could be configured as padding= 'post'
-
 cnnGlove=load_model('cnnGlove') # load CNN model
-'''predict subjectivity'''
-testPredict= (cnnGlove.predict(fixed) > 0.5).astype("int32")
 
-subjectivity=""
-if testPredict[0] == 0:
-    subjectivity='Objective'
-else:
-    subjectivity='Subjective'
+'''flask configuration'''
+app = Flask(__name__)
+CORS(app)
 
-output= 'The subjectivity result for the entered text: '+ inpuText+'\nis: \t'
-print(output+subjectivity)
+@app.route('/predict/',methods=['POST'])
+def predict():
+    #Receive needed attributes
+    tweet          = request.json['TWEET']
+    print(tweet)
+    inpuText=tweet
+    text= convert_emojis_to_word(inpuText)
+    text=cleanTweets(text)
+    text=getCleanTextIn(text)
+
+    # vocabSize = len(token.word_index) + 1 #4276 vocabularies/ with back-translated 4794
+
+    encodedText = token.texts_to_sequences([text])
+    maxLength = 100 # make input size equal model configuration size
+    fixed = pad_sequences(encodedText,maxlen=maxLength,padding='pre') # could be configured as padding= 'post'
+
+    '''predict subjectivity'''
+    testPredict= (cnnGlove.predict(fixed) > 0.5).astype("int32")
+
+    str(testPredict[0])
+
+    subjectivity=""
+    if testPredict[0] == 0:
+        subjectivity='Objective'
+        sub=0
+    else:
+        subjectivity='Subjective'
+        sub=1
+
+    message=subjectivity
+    print(message)
+    # output= 'The subjectivity result for the entered text: '+ inpuText+'\nis: \t'
+    # print(output+subjectivity)
+
+    #Send result as JSON msg to frontend
+    res = jsonify({'msg':message})    
+    print (res)
+    return res
+
+
+@app.route('/')  #check connectivity
+def connected():
+    return'''
+    <html>
+        <h1>Connected to Subjectivity-Group Project Backend Side!!!</h1>
+        <h4>Team members</h4>
+        <ul>
+            <li>Amr Shakhshir</li>
+            <li>Sophia Abel</li>
+            <li>Lena Greiner-Hiero</li>
+            <li>Alina Krüger</li>
+            <li>Chiara Loverso</li>
+        </ul>
+    </html>
+    '''
+
+
+if __name__ == '__main__':
+    app.run(debug =True )
