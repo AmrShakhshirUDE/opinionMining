@@ -1,5 +1,4 @@
 #flask
-from email import message
 from flask import Flask, jsonify, request, json,send_file,redirect,url_for,session
 from flask_cors import CORS
 
@@ -13,7 +12,7 @@ from numpy import array
 import pandas as pd
 import pickle
 import string
-from deep_translator import GoogleTranslator
+# from deep_translator import GoogleTranslator
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
