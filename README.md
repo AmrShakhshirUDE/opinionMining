@@ -2,9 +2,16 @@
 This project is designed to predict texts' subjectivity [Subjective / Objective] based on real tweets that have been labeled by our team.
 > Master Project: Our team is a group of students majoring in Computer Engineering and Komedia - "Applied cognitive and media science" at University of Duisburg-Essen.
 
-# Features
-## Users can do the following:
-1. Check wheather a sentence is subjective or objective.
+# About the project
+## Project is capable of the following:
+1. Check wheather a sentence is subjective or objective. (implemented in front-end website on heroku)
+2. Assign to a cluster and show some words at each cluster using to clustering methods: k-means & DBSCSN. (Only at back-end). [Check](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/mastergLove.ipynb) clusters & clustering evaluation.
+## Project's detail:
+1. Convolutional neural network "CNN" + global vector "GLOVE" are combined to produce this model.
+2. Training dataset "indomain" consists of 844 entries [objective -> 433 || Subkective -> 411] in several aspects i.e. (restaurants, james bond, and fifa). [Check-indomain-scores](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/indomainScores.png).
+3. Testing dataset "outdomain" consists of 670 entries [objective -> 204 || Subkective -> 466] in other aspects i.e. (squid game and movies). [Check-outdomain-scores](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/outdomainScores.png).
+4. Input text is preprocced using several methods such as removing hashtags, translating emojis into meaningful text, and transforming some abbreviations into full words.
+5. A text is classified as subjective if it contains feeling, opinion, or sentiment, or questiones that accept different answers. Otherwise it is classified as objective.
 
 # Try on Heroku
 [Opinion-Mining](https://opinion-mining-ude.herokuapp.com/)
