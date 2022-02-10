@@ -74,7 +74,7 @@ deployMasterProject.py
 
 The backend part should be running now.
 
-2. Download [fornt-end](`https://github.com/AmrShakhshirUDE/masterFron`) repository 
+2. Download [fornt-end](https://github.com/AmrShakhshirUDE/masterFron) repository 
 
 3. Go to `src\Components\Header.js`
 
