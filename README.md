@@ -105,4 +105,4 @@ then repeat step number 6
 > <ul><li>Amr Shakhshir</li> <li>Sophia Abel</li> <li>Lena Greiner-Hiero</li> <li>Alina Krüger</li> <li>Chiara Loverso</li></ul>
 
 # Sources
-> Data has been collected from twitter using [twint](https://github.com/twintproject/twint) tool and manually labeled by our team member with reliability score of 92.8% according to Krippendorff's alpha measurement. <br/>Translating emojis is done using the dictionary provided at [emot](https://github.com/NeelShah18/emot) repository.
+> - Data has been collected from twitter using [twint](https://github.com/twintproject/twint) tool and manually labeled by our team member with reliability score of 92.8% according to Krippendorff's alpha measurement. <br/>- Translating emojis is done using the dictionary provided at [emot](https://github.com/NeelShah18/emot) repository.
