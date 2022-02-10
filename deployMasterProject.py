@@ -1,7 +1,6 @@
 #flask
 from email import message
 from flask import Flask, jsonify, request, json,send_file,redirect,url_for,session
-from bson.json_util import dumps
 from flask_cors import CORS
 
 #to import cnn model
