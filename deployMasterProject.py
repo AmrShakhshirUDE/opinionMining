@@ -147,6 +147,9 @@ with open('tokenizer.pickle', 'rb') as handle:
 
 cnnGlove=load_model('cnnGlove') # load CNN model
 
+def has_numbers(inputString):
+    return any(char.isdigit() for char in inputString)
+
 '''flask configuration'''
 app = Flask(__name__)
 CORS(app)
@@ -161,29 +164,34 @@ def predict():
     text=cleanTweets(text)
     text=getCleanTextIn(text)
 
-    # vocabSize = len(token.word_index) + 1 #4276 vocabularies/ with back-translated 4794
+    word_list = text.split()
+    number_of_words = len(word_list)
 
-    encodedText = token.texts_to_sequences([text])
-    maxLength = 100 # make input size equal model configuration size
-    fixed = pad_sequences(encodedText,maxlen=maxLength,padding='pre') # could be configured as padding= 'post'
-
-    '''predict subjectivity'''
-    testPredict= (cnnGlove.predict(fixed) > 0.5).astype("int32")
-
-    str(testPredict[0])
-
-    subjectivity=""
-    if testPredict[0] == 0:
-        subjectivity='Objective'
-        sub=0
+    if number_of_words < 3:
+        message='Cannot predict, text should be more than 3 words!'
+    elif (number_of_words <4 & has_numbers(text) ):
+        message='Cannot predict, text should be more than 3 words excluding numbers!'
     else:
-        subjectivity='Subjective'
-        sub=1
+        encodedText = token.texts_to_sequences([text])
+        maxLength = 100 # make input size equal model configuration size
+        fixed = pad_sequences(encodedText,maxlen=maxLength,padding='pre') # could be configured as padding= 'post'
 
-    message=subjectivity
+        '''predict subjectivity'''
+        testPredict= (cnnGlove.predict(fixed) > 0.5).astype("int32")
+
+        str(testPredict[0])
+
+        subjectivity=""
+        if testPredict[0] == 0:
+            subjectivity='Objective'
+            sub=0
+        else:
+            subjectivity='Subjective'
+            sub=1
+
+        message=subjectivity
     print(message)
-    # output= 'The subjectivity result for the entered text: '+ inpuText+'\nis: \t'
-    # print(output+subjectivity)
+
 
     #Send result as JSON msg to frontend
     res = jsonify({'msg':message})    
