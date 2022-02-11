@@ -147,8 +147,9 @@ with open('tokenizer.pickle', 'rb') as handle:
 
 cnnGlove=load_model('cnnGlove') # load CNN model
 
-def has_numbers(inputString):
-    return any(char.isdigit() for char in inputString)
+def remove_numbers(inputString):
+    inputString= re.sub(r'\d+', '', inputString)
+    return inputString
 
 '''flask configuration'''
 app = Flask(__name__)
@@ -164,13 +165,15 @@ def predict():
     text=cleanTweets(text)
     text=getCleanTextIn(text)
 
-    word_list = text.split()
+    proceessedText= remove_numbers(text)
+
+    word_list = proceessedText.split()
     number_of_words = len(word_list)
 
     if number_of_words < 3:
-        message='Cannot predict, text should be more than 3 words!'
-    elif (number_of_words <4 & has_numbers(text) ):
-        message='Cannot predict, text should be more than 3 words excluding numbers!'
+        message='Cannot predict, text should be 3 words or more (excluding numbers)!'
+    # elif (number_of_words <4 ):
+    #     message='Cannot predict, text should be more than 3 words excluding numbers!'
     else:
         encodedText = token.texts_to_sequences([text])
         maxLength = 100 # make input size equal model configuration size
