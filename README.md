@@ -8,8 +8,8 @@ This project is designed to predict texts' subjectivity [Subjective / Objective]
 2. Assign to a cluster and show some words at each cluster using to clustering methods: k-means & DBSCSN. (Only at back-end). [Check](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/mastergLove.ipynb) clusters & clustering evaluation.
 ## Project's detail:
 1. Convolutional neural network "CNN" + global vector "GLOVE" are combined to produce this model.
-2. Training dataset "indomain" consists of 844 entries [objective -> 433 || Subkective -> 411] in several aspects i.e. (restaurants, james bond, and fifa). [Check-indomain-scores](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/indomainScores.png).
-3. Testing dataset "outdomain" consists of 670 entries [objective -> 204 || Subkective -> 466] in other aspects i.e. (squid game and movies). [Check-outdomain-scores](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/outdomainScores.png).
+2. Training dataset "indomain" consists of 844 entries [objective -> 433 || Subjective -> 411] in several aspects i.e. (restaurants, james bond, and fifa). [Check-indomain-scores](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/indomainScores.png).
+3. Testing dataset "outdomain" consists of 670 entries [objective -> 204 || Subjective -> 466] in other aspects i.e. (squid game and movies). [Check-outdomain-scores](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/outdomainScores.png).
 4. Input text is preprocced using several methods such as removing hashtags, translating emojis into meaningful text, and transforming some abbreviations into full words.
 5. A text is classified as subjective if it contains feeling, opinion, or sentiment, or questiones that accept different answers. Otherwise it is classified as objective.
 
