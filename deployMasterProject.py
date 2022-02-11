@@ -170,8 +170,8 @@ def predict():
     word_list = proceessedText.split()
     number_of_words = len(word_list)
 
-    if number_of_words < 3:
-        message='Cannot predict, text should be 3 words or more (excluding numbers)!'
+    if number_of_words < 4:
+        message='Cannot predict, text should be 4 words or more (excluding numbers)!'
     # elif (number_of_words <4 ):
     #     message='Cannot predict, text should be more than 3 words excluding numbers!'
     else:
