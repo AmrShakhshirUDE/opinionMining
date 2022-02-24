@@ -34,6 +34,9 @@ This project is designed to predict texts' subjectivity [Subjective / Objective]
 
 ![Subjective Result](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/subjectiveResult.png)
 
+![Model Architecture](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/modelNodes.png)
+
+![Classification Report](https://github.com/AmrShakhshirUDE/opinionMining/blob/main/images/classificationReport.png)
 
 # Technical architecture
 The application consists of two main parts:
